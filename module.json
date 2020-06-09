@@ -19,7 +19,7 @@
 	"url": "https://github.com/schultzcole/FVTT-Default-Image-Overrider",
 	"manifest": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/master/module.json",
 	"download": "https://github.com/schultzcole/FVTT-Default-Image-Overrider/archive/1.1.0.zip",
-	"license": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/1.1.0/LICENSE",
-	"readme": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/1.1.0/README.md",
-	"changelog": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/1.1.0/CHANGELOG.md"
+	"license": "https://github.com/schultzcole/FVTT-Default-Image-Overrider/blob/1.1.0/LICENSE",
+	"readme": "https://github.com/schultzcole/FVTT-Default-Image-Overrider/blob/1.1.0/README.md",
+	"changelog": "https://github.com/schultzcole/FVTT-Default-Image-Overrider/blob/1.1.0/CHANGELOG.md"
 }
