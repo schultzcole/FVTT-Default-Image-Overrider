@@ -8,6 +8,10 @@ Restructured repo in this release, recommend reinstall from scratch.
 
 - Configurable default token image (separate from actor portrait).
 
+### FIXED
+
+- Fixed an issue where default token wasn't being set in some cases (may be related to a change in 0.6.2).
+
 ## [1.0.1] (2020-05-27) *Unavailable*
 
 ### FIXED
