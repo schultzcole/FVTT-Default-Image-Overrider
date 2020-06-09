@@ -1,0 +1,24 @@
+{
+    "default-image-overrider": {
+        "actorImage": {
+            "name": "Actor Image",
+            "hint": "The default image to use for new actors."
+        },
+        "actorTokenImage": {
+            "name": "Actor Token Image",
+            "hint": "The default image to use for new actor prototype tokens."
+        },
+        "itemImage": {
+            "name": "Item Image",
+            "hint": "The default image to use for new items created from the sidebar."
+        },
+        "ownedItemImage": {
+            "name": "Owned Item Image",
+            "hint": "The default image to use for new items created from an actor sheet."
+        },
+        "macroImage": {
+            "name": "Macro Image",
+            "hint": "The default image to use for new macros."
+        }
+    }
+}

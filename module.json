@@ -1,0 +1,25 @@
+{
+	"name": "default-image-overrider",
+	"title": "Default Image Overrider",
+	"description": "A module to allow users to change the default image for new entities.",
+	"version": "1.1.0",
+	"author": "Cole Schultz (cole#9640)",
+	"esmodules": [
+		"default-image-overrider.js"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"minimumCoreVersion": "0.5.0",
+	"compatibleCoreVersion": "0.6.2",
+	"url": "https://github.com/schultzcole/FVTT-Default-Image-Overrider",
+	"manifest": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/master/module.json",
+	"download": "https://github.com/schultzcole/FVTT-Default-Image-Overrider/archive/1.1.0.zip",
+	"license": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/1.1.0/LICENSE",
+	"readme": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/1.1.0/README.md",
+	"changelog": "https://raw.githubusercontent.com/schultzcole/FVTT-Default-Image-Overrider/1.1.0/CHANGELOG.md"
+}
