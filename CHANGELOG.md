@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## [1.2.0] (2020-10-04)
+
+Verify compatibility with 0.7.3
+
+### FIXED
+
+- Fixed an issue where creating a new item, actor, or macro would pop up a warning message for all connected players.
+
+### CHANGED
+
+- Removed the unnecessary dependency on the dnd5e system. Should be completely system agnostic now.
+
 ## [1.1.0] (2020-06-09)
 
 Restructured repo in this release, recommend reinstall from scratch.
