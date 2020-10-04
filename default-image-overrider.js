@@ -3,74 +3,56 @@
  * Software License: GNU GPLv3
  */
 
-// Import JavaScript modules
-import { registerSetting, getSetting } from './settings.js';
-import Actor5e from "../../../../systems/dnd5e/module/actor/entity.js";
+const moduleName = "default-image-overrider";
 
 const mm = "icons/svg/mystery-man.svg";
 const mmToken = "icons/mystery-man.png";
 const dt = "icons/svg/dice-target.svg";
 
-Hooks.once('setup', async function() {
-	registerSetting("actorImage", String);
-	registerSetting("actorTokenImage", String);
-	registerSetting("itemImage", String);
-	registerSetting("ownedItemImage", String);
-	registerSetting("macroImage", String);
+const defaults = {
+    actorImage: "icons/svg/mystery-man.svg",
+    actorTokenImage: "icons/mystery-man.png",
+    itemImage: "icons/svg/mystery-man.svg",
+    ownedItemImage: "icons/svg/mystery-man.svg",
+    macroImage: "icons/svg/dice-target.svg",
+};
 
-	// pre-retrieve/compile the appropriate sheets
-	// so that they are cached by the time an entity is created.
-	await Promise.all([
-		getTemplate("systems/dnd5e/templates/actors/character-sheet.html"),
-		getTemplate("systems/dnd5e/templates/actors/npc-sheet.html"),
-		// Double slashes here because the dnd5e system for some reason
-		// loads these templates with two slashes in the path, so we have to 
-		// match that path to make sure it gets the cached value.
-		getTemplate("systems/dnd5e/templates/items//backpack.html"),
-		getTemplate("systems/dnd5e/templates/items//class.html"),
-		getTemplate("systems/dnd5e/templates/items//consumable.html"),
-		getTemplate("systems/dnd5e/templates/items//equipment.html"),
-		getTemplate("systems/dnd5e/templates/items//feat.html"),
-		getTemplate("systems/dnd5e/templates/items//loot.html"),
-		getTemplate("systems/dnd5e/templates/items//spell.html"),
-		getTemplate("systems/dnd5e/templates/items//tool.html"),
-		getTemplate("systems/dnd5e/templates/items//weapon.html"),
-	])
-
-	patchActor5eCreateOwnedItem();
+Hooks.once("setup", async function () {
+    registerSetting("actorImage", String);
+    registerSetting("actorTokenImage", String);
+    registerSetting("itemImage", String);
+    registerSetting("ownedItemImage", String);
+    registerSetting("macroImage", String);
 });
 
-Hooks.on("createActor", actor => {
-	let imgPath = getSetting("actorImage");
-	let tokenPath = getSetting("actorTokenImage");
-	let prevImg = actor.data.img;
-	let prevToken = actor.data.token?.img;
-	let data = {
-		img: (!prevImg || prevImg === mm) ? imgPath : prevImg,
-		token: { img: (!prevToken || prevToken === mmToken || prevToken === mm) ? tokenPath : prevToken }
-	};
-	actor.update(data);
+Hooks.on("preCreateActor", (actorData) => {
+    const imgPath = game.settings.get(moduleName, "actorImage");
+    const tokenPath = game.settings.get(moduleName, "actorTokenImage");
+    const prevImg = actorData.img;
+    const prevToken = actorData.token?.img;
+    actorData.img = !prevImg || prevImg === mm ? imgPath : prevImg;
+    actorData.token.img = !prevToken || prevToken === mmToken || prevToken === mm ? tokenPath : prevToken;
 });
 
-Hooks.on("createItem", item => {
-	let imgPath = getSetting("itemImage");
-	let prevImg = item.data.img;
-	item.update({ img: (!prevImg || prevImg === mm) ? imgPath : prevImg });
-});
+Hooks.on("preCreateItem", (itemData) => setEntityImage(itemData, game.settings.get(moduleName, "itemImage")));
+Hooks.on("preCreateMacro", (itemData) => setEntityImage(itemData, game.settings.get(moduleName, "macroImage")));
+Hooks.on("preCreateOwnedItem", (actor, itemData) =>
+    setEntityImage(itemData, game.settings.get(moduleName, "itemImage"))
+);
 
-Hooks.on("createMacro", macro => {
-	let imgPath = getSetting("macroImage");
-	let prevImg = macro.data.img;
-	macro.update({ img: (!prevImg || prevImg === dt) ? imgPath : prevImg });
-});
+function setEntityImage(entityData, imgPath) {
+    const prevImg = entityData.img;
+    entityData.img = !prevImg || prevImg === mm ? imgPath : prevImg;
+}
 
-
-function patchActor5eCreateOwnedItem() {
-	let oldCreateOwnedItem = Actor5e.prototype.createOwnedItem;
-
-	Actor5e.prototype.createOwnedItem = function(itemData, options) {
-		if (!itemData.img || itemData.img === mm) itemData.img = getSetting("ownedItemImage");
-
-		return oldCreateOwnedItem.call(this, itemData, options);
-	}
+export function registerSetting(key, type) {
+    let data = {
+        type: type,
+        scope: "world",
+        config: true,
+        name: game.i18n.localize(`${moduleName}.${key}.name`),
+        hint: game.i18n.localize(`${moduleName}.${key}.hint`),
+        default: defaults[key],
+    };
+    game.settings.register(moduleName, key, data);
 }
